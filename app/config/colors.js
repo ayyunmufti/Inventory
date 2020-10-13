@@ -1,0 +1,17 @@
+export default {
+  primary: "#fc5c65",
+  secondary: "#4ecdc4",
+  white: "white",
+  gray: "#F8F8F8",
+  subcolor: "#6e6969",
+  offwhite: "offwhite",
+  black: "#000",
+  lightgreen: "#EAFAF1",
+  lightred: "#F9EBEA",
+  danger: "#ff5252",
+  lightgray: "#f8f4f4",
+  mediumgray: "#6e6969",
+  darkgray: "#0c0c0c",
+  mediumred: "#CD9B9B",
+  tomato: "tomato",
+};

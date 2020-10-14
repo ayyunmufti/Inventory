@@ -57,7 +57,6 @@ function SuppliersScreen({ navigation }) {
     data[i] = v;
     console.log(i);
     setdata(data);
-    setupdateddata({});
     setmodalvisible(false);
     showMessage({
       message: "Updated",
@@ -66,6 +65,7 @@ function SuppliersScreen({ navigation }) {
       type: "success",
       color: "black",
     });
+    setupdateddata({});
   };
   return (
     <>

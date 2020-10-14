@@ -36,7 +36,7 @@ function ContactsScreen({ navigation }) {
   ];
   const [data, setdata] = useState(d);
   const [visiblemodel, setmodalvisible] = useState(false);
-  const [updateddata, setupdateddata] = useState(false);
+  const [updateddata, setupdateddata] = useState({});
   const flash1 = useRef("flash1");
 
   const handleDelete = (i) => {
@@ -50,7 +50,7 @@ function ContactsScreen({ navigation }) {
   };
   const Handleupdate = (z) => {
     const v = { ...z };
-
+    console.log(v);
     setupdateddata(v);
     setmodalvisible(true);
   };
@@ -60,15 +60,16 @@ function ContactsScreen({ navigation }) {
     data[i] = v;
     console.log(i);
     setdata(data);
-    setupdateddata({});
+    //console.log(data);
     setmodalvisible(false);
     showMessage({
       message: "Updated",
-      description: `name: ${data[i].name} 
+      description: `name: ${data[i].name}
       id:   ${data[i].number}`,
       type: "success",
       color: "black",
     });
+    setupdateddata({});
   };
   return (
     <>

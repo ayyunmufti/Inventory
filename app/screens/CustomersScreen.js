@@ -9,6 +9,13 @@ import colors from "../config/colors";
 import DStyles from "../config/DStyles";
 import * as yup from "yup";
 import FlashMessage, { showMessage } from "react-native-flash-message";
+import store from "../../store/configStore";
+import {
+  customerAdded,
+  customerDeleted,
+  customerUpdated,
+  addCustomer,
+} from "../../store/customer";
 
 const validationSchema2 = yup.object().shape({
   name: yup.string().required().label("Name1"),
@@ -17,33 +24,41 @@ const validationSchema2 = yup.object().shape({
 const initialValues = { name: "", number: "" };
 
 function CustomersScreen({ navigation }) {
-  const d = [
-    {
-      name: "king",
-      number: "2132312312323",
+  let d = store.getState().enitites.customer;
 
-      img: require("../assets/im.jpg"),
-    },
-    {
-      name: "chair",
-      number: "121232324324",
+  // const d = [
+  //   {
+  //     id: 1,
+  //     name: "king",
+  //     number: "2132312312323",
 
-      img: require("../assets/im.jpg"),
-    },
-  ];
+  //     img: require("../assets/im.jpg"),
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "chair",
+  //     number: "121232324324",
+
+  //     img: require("../assets/im.jpg"),
+  //   },
+  // ];
   const [data, setdata] = useState(d);
   const [visiblemodel, setmodalvisible] = useState(false);
   const [updateddata, setupdateddata] = useState(false);
   const flash1 = useRef("flash1");
 
   const handleDelete = (i) => {
-    setdata(data.filter((n) => n.number !== i));
+    // setdata(data.filter((n) => n.number !== i));
+    store.dispatch(customerDeleted(i));
+    setdata(store.getState().enitites.customer);
   };
   const handleAdd = (v) => {
-    v = { name: v["name"], number: v["number"] };
-
-    d.push(v);
-    setdata(d);
+    v = { id: 2, name: v["name"], number: v["number"] };
+    store.dispatch(customerAdded(v));
+    setdata(store.getState().enitites.customer);
+    // d.push(v);
+    // setdata(d);
+    store.dispatch(addCustomer(v));
   };
   const Handleupdate = (z) => {
     const v = { ...z };
@@ -52,20 +67,20 @@ function CustomersScreen({ navigation }) {
     setmodalvisible(true);
   };
   const onPressUpdate = (v) => {
-    const i = d.findIndex((n) => n.number == v.number);
+    // const i = d.findIndex((n) => n.number == v.number);
 
-    data[i] = v;
-    console.log(i);
-    setdata(data);
-    setupdateddata({});
+    // data[i] = v;
+    store.dispatch(customerUpdated(v));
+    setdata(store.getState().enitites.customer);
+    //setdata(data);
     setmodalvisible(false);
     showMessage({
       message: "Updated",
-      description: `name: ${data[i].name} 
-      id:   ${data[i].number}`,
+
       type: "success",
       color: "black",
     });
+    setupdateddata({});
   };
   return (
     <>
@@ -80,7 +95,7 @@ function CustomersScreen({ navigation }) {
               img={item.img}
               RightAction={() => (
                 <RightAction
-                  doDelete={() => handleDelete(item.number)}
+                  doDelete={() => handleDelete(item)}
                   doUpate={() => Handleupdate(item)}
                 />
               )}

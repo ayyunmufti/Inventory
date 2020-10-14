@@ -17,13 +17,13 @@ import RightAction from "./app/components/RightAction";
 import DetailsScreen from "./app/screens/DetailsScreen";
 
 export default function App() {
-  // if (db) {
-  //   db.transaction((tx) => {
-  //     tx.executeSql(
-  //       "create table if not exists cus (id integer,first_name string,last_name string);"
-  //     );
-  //   });
-  // }
+  if (db) {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "create table if not exists customer (id integer,name string,number string);"
+      );
+    });
+  }
 
   return (
     // <Item />
